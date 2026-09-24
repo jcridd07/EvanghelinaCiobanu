@@ -1,8 +1,9 @@
 /* ===== CSS Variables ===== */
 :root {
-  --color-bg: #f5f4f3;
-  --color-bg-alt: #eae8e6;
-  --color-text: #1a1a1a;
+  --color-bg: #fafafa;        /* Clean, neutral off-white (replaces warm #f5f4f3) */
+  --color-bg-alt: #f3f4f6;    /* Soft neutral light gray for cards/sections (replaces #eae8e6) */
+  --color-border: #e5e7eb;    /* Crisp, neutral border tone (replaces yellowish #dcdad7) */
+}
   --color-text-muted: #6b6866;
   --color-accent: #7a2331;
   --color-accent-hover: #c41230;
