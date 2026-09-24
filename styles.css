@@ -1,12 +1,12 @@
 /* ===== CSS Variables ===== */
 :root {
-  --color-bg: #fafafa;
-  --color-bg-alt: #f3f4f6;
+  --color-bg: #ffffff;
+  --color-bg-alt: #ffffff;
   --color-text: #1a1a1a;
   --color-text-muted: #6b6866;
   --color-accent: #7a2331;
   --color-accent-hover: #c41230;
-  --color-border: #e5e7eb;
+  --color-border: #eceae8;
   --color-white: #ffffff;
 
   --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
