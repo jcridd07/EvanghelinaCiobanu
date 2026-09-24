@@ -1,12 +1,12 @@
 /* ===== CSS Variables ===== */
 :root {
-  --color-bg: #ffffff;
-  --color-bg-alt: #f8f9fa;
+  --color-bg: #f5f4f3;
+  --color-bg-alt: #eae8e6;
   --color-text: #1a1a1a;
   --color-text-muted: #6b6866;
   --color-accent: #7a2331;
   --color-accent-hover: #c41230;
-  --color-border: #e8e6e4;
+  --color-border: #dcdad7;
   --color-white: #ffffff;
 
   --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
@@ -171,7 +171,8 @@ p:last-child {
   border-color: var(--color-accent);
 }
 
-.btn-primary:hover, .btn-primary:focus-visible {
+.btn-primary:hover,
+.btn-primary:focus-visible {
   background-color: var(--color-accent-hover);
   border-color: var(--color-accent-hover);
   color: var(--color-white);
@@ -183,9 +184,10 @@ p:last-child {
   border-color: var(--color-text);
 }
 
-.btn-secondary:hover, .btn-secondary:focus-visible {
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
   background-color: var(--color-text);
-  color: var(--color-white);
+  color: var(--color-bg);
 }
 
 /* ===== Header ===== */
@@ -195,7 +197,7 @@ p:last-child {
   left: 0;
   right: 0;
   height: var(--header-height);
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(245, 244, 243, 0.92);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--color-border);
   z-index: 100;
@@ -245,7 +247,8 @@ p:last-child {
   transition: transform var(--transition);
 }
 
-.main-nav a:hover::after, .main-nav a:focus-visible::after {
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after {
   transform: scaleX(1);
 }
 
@@ -261,7 +264,9 @@ p:last-child {
   padding: 0;
 }
 
-.hamburger, .hamburger::before, .hamburger::after {
+.hamburger,
+.hamburger::before,
+.hamburger::after {
   display: block;
   width: 22px;
   height: 2px;
@@ -269,7 +274,8 @@ p:last-child {
   transition: transform var(--transition), opacity var(--transition);
 }
 
-.hamburger::before, .hamburger::after {
+.hamburger::before,
+.hamburger::after {
   content: "";
   position: relative;
 }
@@ -337,7 +343,9 @@ p:last-child {
   min-height: 420px;
 }
 
-.hero-placeholder, .image-placeholder, .video-placeholder {
+.hero-placeholder,
+.image-placeholder,
+.video-placeholder {
   height: 100%;
   width: 100%;
   min-height: 320px;
@@ -494,7 +502,9 @@ p:last-child {
   color: var(--color-text);
 }
 
-.form input, .form select, .form textarea {
+.form input,
+.form select,
+.form textarea {
   font-family: var(--font-sans);
   font-size: 1rem;
   padding: 0.75rem 1rem;
@@ -505,7 +515,9 @@ p:last-child {
   transition: border-color var(--transition);
 }
 
-.form input:focus-visible, .form select:focus-visible, .form textarea:focus-visible {
+.form input:focus-visible,
+.form select:focus-visible,
+.form textarea:focus-visible {
   border-color: var(--color-accent);
 }
 
@@ -554,7 +566,6 @@ p:last-child {
 
 /* ===== Footer ===== */
 .site-footer {
-  background-color: var(--color-bg-alt);
   border-top: 1px solid var(--color-border);
   padding: var(--space-lg) 0;
   text-align: center;
