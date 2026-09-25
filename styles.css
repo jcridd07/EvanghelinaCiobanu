@@ -48,6 +48,7 @@ body {
 
 img {
   max-width: 100%;
+  height: auto;
   display: block;
 }
 
@@ -338,11 +339,6 @@ p:last-child {
   flex-wrap: wrap;
 }
 
-.hero-image {
-  height: 100%;
-  min-height: 420px;
-}
-
 .hero-placeholder,
 .image-placeholder,
 .video-placeholder {
@@ -385,6 +381,8 @@ p:last-child {
 }
 
 .media-card {
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-white);
   border: 1px solid var(--color-border);
   border-radius: 8px;
@@ -397,17 +395,9 @@ p:last-child {
   box-shadow: 0 12px 28px rgba(28, 27, 25, 0.08);
 }
 
-.media-thumb {
-  aspect-ratio: 16 / 10;
-}
-
-.media-thumb .video-placeholder {
-  min-height: 0;
-  border-radius: 0;
-}
-
 .media-card-body {
   padding: var(--space-md);
+  flex-grow: 1;
 }
 
 .media-card-body h3 {
@@ -587,14 +577,14 @@ p:last-child {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 520px;
-  overflow: hidden;
+  width: 100%;
 }
 
 .hero-image img {
   width: 100%;
-  max-width: 440px;
-  height: 520px;
+  max-width: 480px;             /* Large, prominent portrait */
+  aspect-ratio: 4 / 5;          /* Natural portrait proportions */
+  height: auto;
   object-fit: cover;
   object-position: center top;
   border-radius: 8px;
@@ -603,12 +593,14 @@ p:last-child {
 .about-image {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .about-image img {
   width: 100%;
-  max-width: 380px;
+  max-width: 420px;             /* Balanced portrait next to about text */
   aspect-ratio: 4 / 5;
+  height: auto;
   object-fit: cover;
   object-position: center top;
   border-radius: 8px;
@@ -616,8 +608,9 @@ p:last-child {
 
 .media-thumb {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;         /* Standard landscape thumbnail */
   overflow: hidden;
+  border-radius: 8px 8px 0 0;
 }
 
 .media-thumb img {
@@ -626,6 +619,12 @@ p:last-child {
   object-fit: cover;
   object-position: center;
 }
+
+.media-thumb .video-placeholder {
+  min-height: 0;
+  border-radius: 0;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
   .hero {
