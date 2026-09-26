@@ -339,12 +339,9 @@ p:last-child {
   flex-wrap: wrap;
 }
 
-.hero-placeholder,
-.image-placeholder,
-.video-placeholder {
-  height: 100%;
+.hero-placeholder, .image-placeholder, .video-placeholder {
   width: 100%;
-  min-height: 320px;
+  aspect-ratio: 4 / 5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -353,7 +350,7 @@ p:last-child {
   font-family: var(--font-serif);
   font-size: 1.1rem;
   text-align: center;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 /* ===== About ===== */
@@ -366,11 +363,6 @@ p:last-child {
 
 .about-text p {
   color: var(--color-text-muted);
-}
-
-.about-image .image-placeholder {
-  aspect-ratio: 4 / 5;
-  min-height: 0;
 }
 
 /* ===== Performances / Media grid ===== */
@@ -573,44 +565,34 @@ p:last-child {
 }
 
 /* ===== Image Fitting Fix ===== */
-.hero-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.hero-image img {
-  width: 100%;
-  max-width: 480px;             /* Large, prominent portrait */
-  aspect-ratio: 4 / 5;          /* Natural portrait proportions */
-  height: auto;
-  object-fit: cover;
-  object-position: center top;
-  border-radius: 8px;
-}
-
+.hero-image,
 .about-image {
+  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
+/* Portraits: Fill their column neatly, keep natural vertical framing */
+.hero-image img,
 .about-image img {
   width: 100%;
-  max-width: 420px;             /* Balanced portrait next to about text */
-  aspect-ratio: 4 / 5;
   height: auto;
+  max-height: 580px;            /* Prevents portraits from dominating on tall displays */
+  aspect-ratio: 4 / 5;          /* Clean portrait ratio */
   object-fit: cover;
-  object-position: center top;
+  object-position: center top;  /* Prioritizes faces/heads in portraits */
   border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
+/* Media & Video Thumbnails: Uniform landscape cards */
 .media-thumb {
   width: 100%;
-  aspect-ratio: 16 / 9;         /* Standard landscape thumbnail */
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: 8px 8px 0 0;
+  background-color: var(--color-border);
 }
 
 .media-thumb img {
@@ -621,7 +603,7 @@ p:last-child {
 }
 
 .media-thumb .video-placeholder {
-  min-height: 0;
+  aspect-ratio: 16 / 9;
   border-radius: 0;
 }
 
