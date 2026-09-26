@@ -564,7 +564,7 @@ p:last-child {
   color: var(--color-accent);
 }
 
-/* ===== Image Fitting Fix ===== */
+/* ===== Image Fitting Fix (Whole Image Guaranteed) ===== */
 .hero-image,
 .about-image {
   width: 100%;
@@ -573,20 +573,18 @@ p:last-child {
   justify-content: center;
 }
 
-/* Portraits: Fill their column neatly, keep natural vertical framing */
+/* Let the full portrait scale naturally without cropping any edges */
 .hero-image img,
 .about-image img {
   width: 100%;
-  height: auto;
-  max-height: 580px;            /* Prevents portraits from dominating on tall displays */
-  aspect-ratio: 4 / 5;          /* Clean portrait ratio */
-  object-fit: cover;
-  object-position: center top;  /* Prioritizes faces/heads in portraits */
+  max-width: 460px;           /* Clean, balanced size next to the text */
+  height: auto;               /* Preserves the photo's genuine proportions */
+  display: block;
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* Media & Video Thumbnails: Uniform landscape cards */
+/* Media Cards: clean thumbnails */
 .media-thumb {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -595,10 +593,11 @@ p:last-child {
   background-color: var(--color-border);
 }
 
+/* Shows the entire thumbnail content without chopping edges */
 .media-thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover;          /* Standard for video cards; if these also get cropped, change to 'contain' */
   object-position: center;
 }
 
