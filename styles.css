@@ -670,7 +670,39 @@ p:last-child {
     grid-template-columns: 1fr;
   }
 
-  .form-row {
-    grid-template-columns: 1fr;
+    .form-row {
+      grid-template-columns: 1fr;
+    }
   }
-}
+
+  /* Social Media Bar */
+  .social-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: inherit;
+    opacity: 0.75;
+    transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  }
+
+  .social-links a svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .social-links a:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    color: #a67c52; /* Accent color matching your site buttons/branding */
+  }
