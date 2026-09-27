@@ -701,8 +701,30 @@ p:last-child {
     height: 20px;
   }
 
-  .social-links a:hover {
-    opacity: 1;
-    transform: translateY(-2px);
-    color: #a67c52; /* Accent color matching your site buttons/branding */
-  }
+ .social-links a:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  color: #a67c52;
+}
+
+/* PASTE IT RIGHT HERE AT THE END */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-socials {
+  margin: 0;
+  gap: 0.75rem;
+}
+
+.header-socials a {
+  width: 32px;
+  height: 32px;
+}
+
+.header-socials a svg {
+  width: 18px;
+  height: 18px;
+}
