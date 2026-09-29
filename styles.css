@@ -728,6 +728,58 @@ p:last-child {
   height: 18px;
 }
 
+// Studio Gallery Carousel
+const track = document.querySelector('.carousel-track');
+const wrapper = document.querySelector('.carousel-track-wrapper');
+const slides = document.querySelectorAll('.carousel-slide');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
+const dotsContainer = document.querySelector('.carousel-dots');
+
+if (track && wrapper && slides.length > 0) {
+  let currentIndex = 0;
+
+  if (dotsContainer) {
+    dotsContainer.innerHTML = '';
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('button');
+      dot.classList.add('carousel-dot');
+      dot.setAttribute('aria-label', `Go to slide ${idx + 1}`);
+      if (idx === currentIndex) dot.classList.add('active');
+      dot.addEventListener('click', () => updateCarousel(idx));
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  const dots = document.querySelectorAll('.carousel-dot');
+
+  function updateCarousel(index) {
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    currentIndex = index;
+
+    slides.forEach((slide, idx) => {
+      slide.classList.toggle('active', idx === currentIndex);
+    });
+
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentIndex);
+    });
+
+    const activeSlide = slides[currentIndex];
+    const wrapperCenter = wrapper.offsetWidth /You will place the new code into two separate files: **`styles.css`** and **`js/script.js`**. 
+
+Do **not** place it at the top where you highlighted in `styles.css`. Here are the exact spots for both:
+
+---
+
+### 1. In `styles.css`
+
+Scroll down to the **very bottom** of your `styles.css` file (past all the media queries, header socials, etc.). 
+
+Find the previous carousel code (it starts with `/* ===== Teaching Gallery Carousel ===== */` or `.carousel-container`) and **replace that entire block** with this:
+
+```css
 /* ===== Teaching Gallery Carousel ===== */
 .teaching-gallery {
   overflow: hidden;
@@ -736,34 +788,31 @@ p:last-child {
 
 .carousel-container {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
+  max-width: 1200px;
   margin: var(--space-md) auto 0;
 }
 
 .carousel-track-wrapper {
   width: 100%;
   overflow: hidden;
-  padding: 2.5rem 0; /* Padding for scaled center image */
+  padding: 3rem 0; /* Room for scaled center slide */
 }
 
 .carousel-track {
   display: flex;
   align-items: center;
-  justify-content: center;
   transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
-  gap: 1.5rem;
+  will-change: transform;
 }
 
 .carousel-slide {
-  flex: 0 0 320px;
-  height: 420px;
+  flex: 0 0 300px;
+  height: 400px;
+  margin: 0 16px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  opacity: 0.45;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  opacity: 0.35;
   transform: scale(0.85);
   transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
               opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1),
@@ -777,14 +826,15 @@ p:last-child {
   height: 100%;
   object-fit: cover;
   display: block;
+  pointer-events: none;
 }
 
-/* Center / Active Slide */
+/* Center Active Slide */
 .carousel-slide.active {
   opacity: 1;
-  transform: scale(1.15);
-  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.16);
-  z-index: 2;
+  transform: scale(1.18);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+  z-index: 5;
   cursor: default;
 }
 
@@ -793,9 +843,9 @@ p:last-child {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--color-white);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
+  background: var(--color-white, #ffffff);
+  color: var(--color-text, #1a1a1a);
+  border: 1px solid var(--color-border, #e2e6f0);
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -805,51 +855,51 @@ p:last-child {
   justify-content: center;
   cursor: pointer;
   z-index: 10;
-  transition: all var(--transition);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all var(--transition, 0.25s ease);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .carousel-btn:hover {
-  background: var(--color-accent);
-  color: var(--color-white);
-  border-color: var(--color-accent);
+  background: var(--color-accent, #7a2331);
+  color: #ffffff;
+  border-color: var(--color-accent, #7a2331);
 }
 
 .prev-btn { left: 1rem; }
 .next-btn { right: 1rem; }
 
-/* Indicator Dots */
+/* Dots */
 .carousel-dots {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 .carousel-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--color-border);
+  background: var(--color-border, #e2e6f0);
   border: none;
   cursor: pointer;
-  transition: all var(--transition);
+  transition: all 0.25s ease;
 }
 
 .carousel-dot.active {
-  background: var(--color-accent);
+  background: var(--color-accent, #7a2331);
   width: 24px;
   border-radius: 6px;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .carousel-slide {
-    flex: 0 0 250px;
-    height: 340px;
+    flex: 0 0 230px;
+    height: 310px;
+    margin: 0 10px;
   }
   .carousel-slide.active {
-    transform: scale(1.08);
+    transform: scale(1.1);
   }
   .prev-btn { left: 0.25rem; }
   .next-btn { right: 0.25rem; }
