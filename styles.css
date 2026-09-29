@@ -728,58 +728,6 @@ p:last-child {
   height: 18px;
 }
 
-// Studio Gallery Carousel
-const track = document.querySelector('.carousel-track');
-const wrapper = document.querySelector('.carousel-track-wrapper');
-const slides = document.querySelectorAll('.carousel-slide');
-const prevBtn = document.querySelector('.prev-btn');
-const nextBtn = document.querySelector('.next-btn');
-const dotsContainer = document.querySelector('.carousel-dots');
-
-if (track && wrapper && slides.length > 0) {
-  let currentIndex = 0;
-
-  if (dotsContainer) {
-    dotsContainer.innerHTML = '';
-    slides.forEach((_, idx) => {
-      const dot = document.createElement('button');
-      dot.classList.add('carousel-dot');
-      dot.setAttribute('aria-label', `Go to slide ${idx + 1}`);
-      if (idx === currentIndex) dot.classList.add('active');
-      dot.addEventListener('click', () => updateCarousel(idx));
-      dotsContainer.appendChild(dot);
-    });
-  }
-
-  const dots = document.querySelectorAll('.carousel-dot');
-
-  function updateCarousel(index) {
-    if (index < 0) index = slides.length - 1;
-    if (index >= slides.length) index = 0;
-    currentIndex = index;
-
-    slides.forEach((slide, idx) => {
-      slide.classList.toggle('active', idx === currentIndex);
-    });
-
-    dots.forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === currentIndex);
-    });
-
-    const activeSlide = slides[currentIndex];
-    const wrapperCenter = wrapper.offsetWidth /You will place the new code into two separate files: **`styles.css`** and **`js/script.js`**. 
-
-Do **not** place it at the top where you highlighted in `styles.css`. Here are the exact spots for both:
-
----
-
-### 1. In `styles.css`
-
-Scroll down to the **very bottom** of your `styles.css` file (past all the media queries, header socials, etc.). 
-
-Find the previous carousel code (it starts with `/* ===== Teaching Gallery Carousel ===== */` or `.carousel-container`) and **replace that entire block** with this:
-
-```css
 /* ===== Teaching Gallery Carousel ===== */
 .teaching-gallery {
   overflow: hidden;
@@ -795,7 +743,7 @@ Find the previous carousel code (it starts with `/* ===== Teaching Gallery Carou
 .carousel-track-wrapper {
   width: 100%;
   overflow: hidden;
-  padding: 3rem 0; /* Room for scaled center slide */
+  padding: 3rem 0;
 }
 
 .carousel-track {
