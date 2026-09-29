@@ -60,16 +60,18 @@ document.querySelectorAll('form[data-netlify="true"]').forEach(form => {
 
 // Studio Gallery Carousel
 const track = document.querySelector('.carousel-track');
+const wrapper = document.querySelector('.carousel-track-wrapper');
 const slides = document.querySelectorAll('.carousel-slide');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
 const dotsContainer = document.querySelector('.carousel-dots');
 
-if (track && slides.length > 0) {
-  let currentIndex = 1; // Starts at second slide by default
+if (track && wrapper && slides.length > 0) {
+  let currentIndex = 0;
 
-  // Generate indicator dots
+  // Build dots
   if (dotsContainer) {
+    dotsContainer.innerHTML = '';
     slides.forEach((_, idx) => {
       const dot = document.createElement('button');
       dot.classList.add('carousel-dot');
@@ -87,7 +89,7 @@ if (track && slides.length > 0) {
     if (index >= slides.length) index = 0;
     currentIndex = index;
 
-    // Update active slide class
+    // Toggle active class
     slides.forEach((slide, idx) => {
       slide.classList.toggle('active', idx === currentIndex);
     });
@@ -97,42 +99,39 @@ if (track && slides.length > 0) {
       dot.classList.toggle('active', idx === currentIndex);
     });
 
-    // Center active slide
+    // True mathematical centering
     const activeSlide = slides[currentIndex];
-    const slideWidth = activeSlide.offsetWidth;
-    const gap = 24; // 1.5rem gap
-    const offset = (slideWidth + gap) * currentIndex;
-    const initialOffset = (slideWidth + gap) * 1;
+    const wrapperCenter = wrapper.offsetWidth / 2;
+    const slideCenter = activeSlide.offsetLeft + (activeSlide.offsetWidth / 2);
+    const targetTranslateX = wrapperCenter - slideCenter;
 
-    track.style.transform = `translateX(${initialOffset - offset}px)`;
+    track.style.transform = `translateX(${targetTranslateX}px)`;
   }
 
-  // Prev / Next button listeners
+  // Button clicks
   if (prevBtn) prevBtn.addEventListener('click', () => updateCarousel(currentIndex - 1));
   if (nextBtn) nextBtn.addEventListener('click', () => updateCarousel(currentIndex + 1));
 
-  // Click side slides to focus
+  // Direct click on any slide centers it
   slides.forEach((slide, idx) => {
     slide.addEventListener('click', () => {
-      if (currentIndex !== idx) updateCarousel(idx);
+      updateCarousel(idx);
     });
   });
 
-  // Mobile swipe gestures
+  // Touch Swipe
   let startX = 0;
-  let endX = 0;
-
   track.addEventListener('touchstart', e => {
     startX = e.changedTouches[0].screenX;
   }, { passive: true });
 
   track.addEventListener('touchend', e => {
-    endX = e.changedTouches[0].screenX;
-    if (startX - endX > 45) updateCarousel(currentIndex + 1);
-    if (endX - startX > 45) updateCarousel(currentIndex - 1);
+    const endX = e.changedTouches[0].screenX;
+    if (startX - endX > 50) updateCarousel(currentIndex + 1);
+    if (endX - startX > 50) updateCarousel(currentIndex - 1);
   }, { passive: true });
 
-  // Initial setup and responsive resizing
+  // Initial position + window resize recalculation
   updateCarousel(currentIndex);
   window.addEventListener('resize', () => updateCarousel(currentIndex));
 }
