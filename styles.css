@@ -762,6 +762,7 @@ p:last-child {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   opacity: 0.35;
   transform: scale(0.85);
+  background-color: #1a1a1a; /* Clean backdrop behind varying aspect ratios */
   transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
               opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1),
               box-shadow 0.45s ease;
@@ -772,18 +773,23 @@ p:last-child {
 .carousel-slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Keeps inactive side cards uniform */
   display: block;
   pointer-events: none;
+  transition: object-fit 0.3s ease;
 }
 
-/* Center Active Slide */
+/* Center Active Slide - reveals entire photo without cropping */
 .carousel-slide.active {
   opacity: 1;
   transform: scale(1.18);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
   z-index: 5;
   cursor: default;
+}
+
+.carousel-slide.active img {
+  object-fit: contain; /* Shows 100% of the image regardless of shape */
 }
 
 /* Nav Buttons */
