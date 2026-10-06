@@ -24,10 +24,8 @@ if (yearSpan) {
   yearSpan.textContent = new Date().getFullYear();
 }
 
-// Optional: smooth scroll offset handled by CSS scroll-padding-top
-
-// Contact / booking forms submit via Netlify Forms without a page reload
-document.querySelectorAll('form[data-netlify="true"]').forEach(form => {
+// Contact / booking forms submit via Formspree without a page reload
+document.querySelectorAll('.form').forEach(form => {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -36,22 +34,32 @@ document.querySelectorAll('form[data-netlify="true"]').forEach(form => {
     const formData = new FormData(form);
 
     if (submitButton) submitButton.disabled = true;
+    if (status) status.textContent = 'Sending...';
 
     try {
-      const response = await fetch('/', {
+      const response = await fetch(form.action, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString(),
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
       });
 
       if (response.ok) {
         form.reset();
         if (status) status.textContent = 'Thank you — your message has been sent.';
-      } else if (status) {
-        status.textContent = 'Something went wrong. Please try again.';
+      } else {
+        const data = await response.json().catch(() => null);
+        if (status) {
+          if (data && data.errors && data.errors.length > 0) {
+            status.textContent = data.errors.map(err => err.message).join(', ');
+          } else {
+            status.textContent = 'Something went wrong. Please try again.';
+          }
+        }
       }
     } catch (error) {
-      if (status) status.textContent = 'Something went wrong. Please try again.';
+      if (status) status.textContent = 'Network error. Please try again.';
     } finally {
       if (submitButton) submitButton.disabled = false;
     }
@@ -85,53 +93,26 @@ if (track && wrapper && slides.length > 0) {
   const dots = document.querySelectorAll('.carousel-dot');
 
   function updateCarousel(index) {
-    if (index < 0) index = slides.length - 1;
-    if (index >= slides.length) index = 0;
-    currentIndex = index;
+    if (index < 0) {
+      currentIndex = slides.length - 1;
+    } else if (index >= slides.length) {
+      currentIndex = 0;
+    } else {
+      currentIndex = index;
+    }
 
-    // Toggle active class
-    slides.forEach((slide, idx) => {
-      slide.classList.toggle('active', idx === currentIndex);
-    });
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-    // Update dots
     dots.forEach((dot, idx) => {
       dot.classList.toggle('active', idx === currentIndex);
     });
-
-    // True mathematical centering
-    const activeSlide = slides[currentIndex];
-    const wrapperCenter = wrapper.offsetWidth / 2;
-    const slideCenter = activeSlide.offsetLeft + (activeSlide.offsetWidth / 2);
-    const targetTranslateX = wrapperCenter - slideCenter;
-
-    track.style.transform = `translateX(${targetTranslateX}px)`;
   }
 
-  // Button clicks
-  if (prevBtn) prevBtn.addEventListener('click', () => updateCarousel(currentIndex - 1));
-  if (nextBtn) nextBtn.addEventListener('click', () => updateCarousel(currentIndex + 1));
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => updateCarousel(currentIndex - 1));
+  }
 
-  // Direct click on any slide centers it
-  slides.forEach((slide, idx) => {
-    slide.addEventListener('click', () => {
-      updateCarousel(idx);
-    });
-  });
-
-  // Touch Swipe
-  let startX = 0;
-  track.addEventListener('touchstart', e => {
-    startX = e.changedTouches[0].screenX;
-  }, { passive: true });
-
-  track.addEventListener('touchend', e => {
-    const endX = e.changedTouches[0].screenX;
-    if (startX - endX > 50) updateCarousel(currentIndex + 1);
-    if (endX - startX > 50) updateCarousel(currentIndex - 1);
-  }, { passive: true });
-
-  // Initial position + window resize recalculation
-  updateCarousel(currentIndex);
-  window.addEventListener('resize', () => updateCarousel(currentIndex));
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => updateCarousel(currentIndex + 1));
+  }
 }
