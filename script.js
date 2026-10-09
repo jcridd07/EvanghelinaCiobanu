@@ -73,7 +73,7 @@ document.querySelectorAll('.form').forEach(form => {
 });
 
 // ==========================================
-// 4. Studio Gallery Carousel
+// 4. Studio Gallery Carousel (3D Wheel Engine)
 // ==========================================
 const track = document.querySelector('.carousel-track');
 const wrapper = document.querySelector('.carousel-track-wrapper');
@@ -84,6 +84,7 @@ const dotsContainer = document.querySelector('.carousel-dots');
 
 if (track && wrapper && slides.length > 0) {
   let currentIndex = 0;
+  const totalSlides = slides.length;
 
   // Build dots
   if (dotsContainer) {
@@ -94,102 +95,112 @@ if (track && wrapper && slides.length > 0) {
       dot.classList.add('carousel-dot');
       dot.setAttribute('aria-label', `Go to slide ${idx + 1}`);
       if (idx === currentIndex) dot.classList.add('active');
-      dot.addEventListener('click', () => updateCarousel(idx));
+      dot.addEventListener('click', () => moveToSlide(idx));
       dotsContainer.appendChild(dot);
     });
   }
 
   const dots = Array.from(document.querySelectorAll('.carousel-dot'));
 
-  function updateCarousel(index) {
+  function updateWheel() {
+    const isMobile = window.innerWidth <= 768;
+    
+    // Spacing between cards along the X-axis
+    const xStep = isMobile ? 120 : 220; 
+    const zStep = isMobile ? -140 : -180;
+    const rotateAngle = 28; // Degree of tilt for wings
+
+    slides.forEach((slide, i) => {
+      // Calculate shortest distance in circular loop (-total/2 to +total/2)
+      let offset = i - currentIndex;
+      if (offset > totalSlides / 2) offset -= totalSlides;
+      if (offset < -totalSlides / 2) offset += totalSlides;
+
+      const absOffset = Math.abs(offset);
+
+      // Only display active center item + 2 items on each side for clean depth
+      if (absOffset <= 2) {
+        slide.style.visibility = 'visible';
+        slide.style.pointerEvents = 'auto';
+
+        const translateX = offset * xStep;
+        const translateZ = absOffset === 0 ? 0 : absOffset * zStep;
+        const rotateY = offset === 0 ? 0 : (offset > 0 ? -rotateAngle : rotateAngle);
+        const scale = absOffset === 0 ? 1 : Math.max(0.72, 1 - absOffset * 0.15);
+
+        // Active center is opaque (1.0); wings are translucent
+        const opacity = absOffset === 0 ? 1 : (absOffset === 1 ? 0.55 : 0.25);
+        const zIndex = 20 - absOffset;
+
+        slide.style.transform = `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
+        slide.style.opacity = opacity;
+        slide.style.zIndex = zIndex;
+
+        slide.classList.toggle('active', absOffset === 0);
+      } else {
+        // Distant slides are hidden behind
+        slide.style.visibility = 'hidden';
+        slide.style.pointerEvents = 'none';
+        slide.style.opacity = '0';
+        slide.style.transform = `translateX(${offset > 0 ? 400 : -400}px) translateZ(-400px) scale(0.5)`;
+        slide.classList.remove('active');
+      }
+    });
+
+    // Update dots
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentIndex);
+    });
+  }
+
+  function moveToSlide(index) {
     if (index < 0) {
-      currentIndex = slides.length - 1;
-    } else if (index >= slides.length) {
+      currentIndex = totalSlides - 1;
+    } else if (index >= totalSlides) {
       currentIndex = 0;
     } else {
       currentIndex = index;
     }
-
-    // Toggle active state classes
-    slides.forEach((slide, idx) => {
-      slide.classList.toggle('active', idx === currentIndex);
-    });
-
-    dots.forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === currentIndex);
-    });
-
-    // Center the active slide dynamically in the viewport
-    const activeSlide = slides[currentIndex];
-    const wrapperWidth = wrapper.offsetWidth;
-    const slideOffset = activeSlide.offsetLeft;
-    const slideWidth = activeSlide.offsetWidth;
-
-    const targetX = slideOffset - (wrapperWidth / 2) + (slideWidth / 2);
-    track.style.transform = `translateX(-${targetX}px)`;
+    updateWheel();
   }
 
-  // Button navigation
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => updateCarousel(currentIndex - 1));
-  }
+  // Prev / Next button listeners
+  if (prevBtn) prevBtn.addEventListener('click', () => moveToSlide(currentIndex - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => moveToSlide(currentIndex + 1));
 
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => updateCarousel(currentIndex + 1));
-  }
-
-  // Click side preview slides to select them
+  // Clicking any visible side card rotates it to the front
   slides.forEach((slide, idx) => {
     slide.addEventListener('click', () => {
-      if (idx !== currentIndex) {
-        updateCarousel(idx);
-      }
+      if (idx !== currentIndex) moveToSlide(idx);
     });
   });
 
-  // Keyboard navigation (Left / Right arrow keys)
+  // Arrow key navigation
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') updateCarousel(currentIndex - 1);
-    if (e.key === 'ArrowRight') updateCarousel(currentIndex + 1);
+    if (e.key === 'ArrowLeft') moveToSlide(currentIndex - 1);
+    if (e.key === 'ArrowRight') moveToSlide(currentIndex + 1);
   });
 
-  // Re-center on browser resize
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => updateCarousel(currentIndex), 100);
-  });
+  // Recalculate on screen resize / orientation change
+  window.addEventListener('resize', updateWheel);
 
   // Touch / Mobile swipe support
   let startX = 0;
-  let currentX = 0;
   let isSwiping = false;
 
   wrapper.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
-    currentX = startX;
     isSwiping = true;
   }, { passive: true });
 
-  wrapper.addEventListener('touchmove', (e) => {
-    if (!isSwiping) return;
-    currentX = e.touches[0].clientX;
-  }, { passive: true });
-
-  wrapper.addEventListener('touchend', () => {
+  wrapper.addEventListener('touchend', (e) => {
     if (!isSwiping) return;
     isSwiping = false;
-    const diff = startX - currentX;
-    const threshold = 40; // minimum px movement to register swipe
-
-    if (diff > threshold) {
-      updateCarousel(currentIndex + 1); // Swiped left
-    } else if (diff < -threshold) {
-      updateCarousel(currentIndex - 1); // Swiped right
-    }
+    const diff = startX - e.changedTouches[0].clientX;
+    if (diff > 40) moveToSlide(currentIndex + 1);
+    else if (diff < -40) moveToSlide(currentIndex - 1);
   });
 
-  // Initial centering calculation once loaded
-  window.addEventListener('load', () => updateCarousel(0));
-  updateCarousel(0);
+  // Initial render
+  updateWheel();
 }
