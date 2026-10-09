@@ -416,10 +416,11 @@ p:last-child {
   font-size: 0.95rem;
 }
 
-/* ===== Teaching ===== */
+/* ===== Teaching (Centered 2-Card Layout) ===== */
 .teaching-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(280px, 360px));
+  justify-content: center;
   gap: var(--space-lg);
   margin-bottom: var(--space-xl);
 }
@@ -430,6 +431,10 @@ p:last-child {
   border-radius: 8px;
   padding: var(--space-lg);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .teaching-card h3 {
@@ -440,6 +445,7 @@ p:last-child {
 .teaching-card p {
   color: var(--color-text-muted);
   font-size: 0.95rem;
+  margin-bottom: var(--space-md);
 }
 
 .teaching-cta {
@@ -644,7 +650,7 @@ p:last-child {
   color: #a67c52;
 }
 
-/* ===== Teaching Gallery Carousel (3D Wheel / Coverflow) ===== */
+/* ===== Teaching Gallery Carousel (3D Wheel) ===== */
 .teaching-gallery {
   overflow: hidden;
   padding: var(--space-xl) 0;
@@ -655,7 +661,7 @@ p:last-child {
   width: 100%;
   max-width: 1100px;
   margin: var(--space-md) auto 0;
-  perspective: 1200px; /* Essential for 3D depth */
+  perspective: 1200px;
 }
 
 .carousel-track-wrapper {
@@ -666,7 +672,7 @@ p:last-child {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible; /* Allows side cards to be visible in 3D space */
+  overflow: visible;
 }
 
 .carousel-track {
@@ -679,7 +685,7 @@ p:last-child {
   transform-style: preserve-3d;
 }
 
-/* Base Slide: All cards anchored at the center of the stage */
+/* Base Slide */
 .carousel-slide {
   position: absolute;
   width: clamp(280px, 45vw, 560px);
@@ -694,26 +700,22 @@ p:last-child {
   padding: 12px;
   cursor: pointer;
   user-select: none;
-  
-  /* Smooth 3D animation when rotating/switching */
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
               opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1),
               box-shadow 0.5s ease;
   will-change: transform, opacity;
-  
-  /* Hidden by default until JS positions it */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
 
-/* Image preserving authentic dimensions */
+/* Native Image Sizing */
 .carousel-slide img {
   max-width: 100%;
   max-height: 100%;
   width: auto;
   height: auto;
-  object-fit: contain; /* Full image visible without cropping */
+  object-fit: contain;
   border-radius: 6px;
   pointer-events: none;
   display: block;
@@ -735,7 +737,7 @@ p:last-child {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 30; /* Stays above all 3D cards */
+  z-index: 30;
   transition: all var(--transition);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
@@ -776,7 +778,29 @@ p:last-child {
   border-radius: 6px;
 }
 
-/* Responsive adjustments */
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hero-image {
+    min-height: 320px;
+    order: -1;
+  }
+
+  .about-grid,
+  .book-content,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .media-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .carousel-track-wrapper {
     height: min(58vh, 440px);
@@ -797,4 +821,53 @@ p:last-child {
 
   .prev-btn { left: 0.25rem; }
   .next-btn { right: 0.25rem; }
+}
+
+@media (max-width: 720px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .main-nav {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform var(--transition), opacity var(--transition);
+  }
+
+  .main-nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    gap: 0;
+    padding: var(--space-sm) 0;
+  }
+
+  .main-nav a {
+    display: block;
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .media-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .teaching-grid {
+    grid-template-columns: minmax(0, 400px);
+    justify-content: center;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 }
