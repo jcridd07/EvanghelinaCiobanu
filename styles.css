@@ -442,6 +442,23 @@ p:last-child {
   color: var(--color-accent);
 }
 
+/* Price Styling */
+.teaching-price {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: var(--space-xs) 0 var(--space-sm);
+  line-height: 1.1;
+}
+
+.teaching-price span {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
 .teaching-card p {
   color: var(--color-text-muted);
   font-size: 0.95rem;
