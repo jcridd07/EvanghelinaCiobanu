@@ -691,9 +691,9 @@ p:last-child {
   width: clamp(280px, 45vw, 560px);
   height: 85%;
   border-radius: 12px;
-  background-color: var(--color-white);
-  border: 1px solid var(--color-border);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  background-color: var(--color-bg);       /* Matches the site's greyish background */
+  border: 1px solid var(--color-bg);      /* Matches the background */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Soft shadow so it still floats nicely */
   display: flex;
   align-items: center;
   justify-content: center;
