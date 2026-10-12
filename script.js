@@ -34,9 +34,9 @@ window.addEventListener('scroll', () => {
     siteHeader.classList.toggle('scrolled', scrollY > 20);
   }
 
-  // Show floating booking pill after scrolling 500px
+  // Show floating booking pill after scrolling 250px
   if (quickPill) {
-    quickPill.classList.toggle('visible', scrollY > 500);
+    quickPill.classList.toggle('visible', scrollY > 250);
   }
 }, { passive: true });
 
@@ -117,10 +117,10 @@ document.querySelectorAll('.form').forEach(form => {
 const floatingActions = document.getElementById('floatingActions');
 const scrollTopBtn = document.getElementById('scrollTopBtn');
 
-// Fade in / out past 500px of scrolling
+// Fade in / out past 250px of scrolling
 window.addEventListener('scroll', () => {
   if (floatingActions) {
-    floatingActions.classList.toggle('visible', window.scrollY > 500);
+    floatingActions.classList.toggle('visible', window.scrollY > 250);
   }
 }, { passive: true });
 
