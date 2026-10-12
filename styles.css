@@ -965,3 +965,60 @@ p:last-child {
     grid-template-columns: 1fr;
   }
 }
+/* ===== Floating Action Pill & Back-to-Top ===== */
+.floating-actions {
+  position: fixed !important;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(18px);
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Shown when scrolled */
+.floating-actions.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Button Appearance */
+.floating-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 20, 20, 0.92);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.floating-btn:hover {
+  background: #000000;
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.pill-cta {
+  gap: 8px;
+  padding: 11px 20px;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.back-to-top {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+}
