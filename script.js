@@ -112,7 +112,30 @@ document.querySelectorAll('.form').forEach(form => {
 });
 
 // ==========================================
-// 6. Studio Gallery Carousel (3D Wheel Engine)
+// 6. Floating "Book a Lesson" & Back-to-Top Pill
+// ==========================================
+const floatingActions = document.getElementById('floatingActions');
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+// Fade in / out past 500px of scrolling
+window.addEventListener('scroll', () => {
+  if (floatingActions) {
+    floatingActions.classList.toggle('visible', window.scrollY > 500);
+  }
+}, { passive: true });
+
+// Smooth scroll to top on arrow click
+if (scrollTopBtn) {
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+
+// ==========================================
+// 7. Studio Gallery Carousel (3D Wheel Engine)
 // ==========================================
 const track = document.querySelector('.carousel-track');
 const wrapper = document.querySelector('.carousel-track-wrapper');
@@ -223,22 +246,30 @@ if (track && wrapper && slides.length > 0) {
   // Recalculate on screen resize / orientation change
   window.addEventListener('resize', updateWheel, { passive: true });
 
-  // Touch / Mobile swipe support
-  let startX = 0;
-  let isSwiping = false;
+    // Touch / Mobile swipe support
+    let startX = 0;
+    let startY = 0;
+    let isSwiping = false;
 
-  wrapper.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    isSwiping = true;
-  }, { passive: true });
+    wrapper.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isSwiping = true;
+    }, { passive: true });
 
-  wrapper.addEventListener('touchend', (e) => {
-    if (!isSwiping) return;
-    isSwiping = false;
-    const diff = startX - e.changedTouches[0].clientX;
-    if (diff > 40) moveToSlide(currentIndex + 1);
-    else if (diff < -40) moveToSlide(currentIndex - 1);
-  }, { passive: true });
+    wrapper.addEventListener('touchend', (e) => {
+      if (!isSwiping) return;
+      isSwiping = false;
+
+      const diffX = startX - e.changedTouches[0].clientX;
+      const diffY = startY - e.changedTouches[0].clientY;
+
+      // Only advance slides if the horizontal swipe was intentional and greater than vertical scrolling
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+        if (diffX > 0) moveToSlide(currentIndex + 1);
+        else moveToSlide(currentIndex - 1);
+      }
+    }, { passive: true });
 
   // Initial render
   updateWheel();
