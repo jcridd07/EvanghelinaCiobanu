@@ -452,14 +452,15 @@ p:last-child {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(3px);
+  background: rgba(255, 255, 255, 0.72); /* Lowered from 0.88 to reveal more photo */
+  backdrop-filter: blur(0.5px);           /* Reduced from 3px (or set to 'none' for zero blur) */
+  -webkit-backdrop-filter: blur(0.5px);   /* Safari support */
   transition: background 0.3s ease;
   z-index: 1;
 }
 
 .teaching-card:hover::before {
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.65); /* Even clearer when hovering */
 }
 
 /* Card inner content sitting above the background */
