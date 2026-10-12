@@ -416,25 +416,63 @@ p:last-child {
   font-size: 0.95rem;
 }
 
-/* ===== Teaching (Centered 2-Card Layout) ===== */
+/* ===== Teaching (Centered 2-Card Layout with Background Photos) ===== */
 .teaching-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(280px, 360px));
+  grid-template-columns: repeat(2, minmax(280px, 380px));
   justify-content: center;
   gap: var(--space-lg);
   margin-bottom: var(--space-xl);
 }
 
 .teaching-card {
-  background-color: var(--color-white);
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
   border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: var(--space-lg);
-  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+}
+
+/* Background image for 30 Min: IMG_4911 */
+.card-30min {
+  background-image: url('Website%20Photos/IMG_4911.jpeg');
+}
+
+/* Background image for 60 Min: IMG_4968 */
+.card-60min {
+  background-image: url('Website%20Photos/IMG_4968.jpeg');
+}
+
+/* Frosted semi-transparent veil for contrast & readability */
+.teaching-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(3px);
+  transition: background 0.3s ease;
+  z-index: 1;
+}
+
+.teaching-card:hover::before {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+/* Card inner content sitting above the background */
+.teaching-card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: var(--space-xl) var(--space-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  text-align: center;
 }
 
 .teaching-card h3 {
@@ -442,10 +480,9 @@ p:last-child {
   color: var(--color-accent);
 }
 
-/* Price Styling */
 .teaching-price {
   font-family: var(--font-serif);
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 600;
   color: var(--color-text);
   margin: var(--space-xs) 0 var(--space-sm);
@@ -454,13 +491,13 @@ p:last-child {
 
 .teaching-price span {
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 400;
   color: var(--color-text-muted);
 }
 
 .teaching-card p {
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: 0.95rem;
   margin-bottom: var(--space-md);
 }
