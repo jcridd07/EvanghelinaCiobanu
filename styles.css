@@ -198,7 +198,7 @@ p:last-child {
   z-index: 1000;
   width: 100%;
   height: var(--header-height);
-  background: rgba(250, 250, 250, 0.72);
+  background: rgba(250, 250, 250, 0.68);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--color-border);
@@ -206,7 +206,7 @@ p:last-child {
 }
 
 .site-header.scrolled {
-  background: rgba(250, 250, 250, 0.85);
+  background: rgba(250, 250, 250, 0.75);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
