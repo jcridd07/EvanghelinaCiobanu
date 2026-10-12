@@ -7,7 +7,7 @@ const mainNav = document.querySelector('.main-nav');
 if (navToggle && mainNav) {
   navToggle.addEventListener('click', () => {
     const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-    navToggle.setAttribute('aria-expanded', !isExpanded);
+    navToggle.setAttribute('aria-expanded', String(!isExpanded));
     mainNav.classList.toggle('is-open');
   });
 
@@ -21,7 +21,46 @@ if (navToggle && mainNav) {
 }
 
 // ==========================================
-// 2. Set Current Year in Footer
+// 2. Frosted Header & Floating Pill Scroll Watcher
+// ==========================================
+const siteHeader = document.querySelector('.site-header');
+const quickPill = document.getElementById('quickBookPill');
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+
+  // Toggle frosted header shadow/opacity
+  if (siteHeader) {
+    siteHeader.classList.toggle('scrolled', scrollY > 20);
+  }
+
+  // Show floating booking pill after scrolling 500px
+  if (quickPill) {
+    quickPill.classList.toggle('visible', scrollY > 500);
+  }
+}, { passive: true });
+
+// ==========================================
+// 3. Gentle Scroll Reveal (IntersectionObserver)
+// ==========================================
+const revealObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal, .section, .teaching-card').forEach(el => {
+  if (!el.classList.contains('reveal')) {
+    el.classList.add('reveal');
+  }
+  revealObserver.observe(el);
+});
+
+// ==========================================
+// 4. Set Current Year in Footer
 // ==========================================
 const yearSpan = document.getElementById('year');
 if (yearSpan) {
@@ -29,7 +68,7 @@ if (yearSpan) {
 }
 
 // ==========================================
-// 3. Formspree AJAX Form Handling
+// 5. Formspree AJAX Form Handling
 // ==========================================
 document.querySelectorAll('.form').forEach(form => {
   form.addEventListener('submit', async (event) => {
@@ -73,7 +112,7 @@ document.querySelectorAll('.form').forEach(form => {
 });
 
 // ==========================================
-// 4. Studio Gallery Carousel (3D Wheel Engine)
+// 6. Studio Gallery Carousel (3D Wheel Engine)
 // ==========================================
 const track = document.querySelector('.carousel-track');
 const wrapper = document.querySelector('.carousel-track-wrapper');
@@ -104,9 +143,9 @@ if (track && wrapper && slides.length > 0) {
 
   function updateWheel() {
     const isMobile = window.innerWidth <= 768;
-    
+
     // Spacing between cards along the X-axis
-    const xStep = isMobile ? 120 : 220; 
+    const xStep = isMobile ? 120 : 220;
     const zStep = isMobile ? -140 : -180;
     const rotateAngle = 28; // Degree of tilt for wings
 
@@ -182,7 +221,7 @@ if (track && wrapper && slides.length > 0) {
   });
 
   // Recalculate on screen resize / orientation change
-  window.addEventListener('resize', updateWheel);
+  window.addEventListener('resize', updateWheel, { passive: true });
 
   // Touch / Mobile swipe support
   let startX = 0;
@@ -199,7 +238,7 @@ if (track && wrapper && slides.length > 0) {
     const diff = startX - e.changedTouches[0].clientX;
     if (diff > 40) moveToSlide(currentIndex + 1);
     else if (diff < -40) moveToSlide(currentIndex - 1);
-  });
+  }, { passive: true });
 
   // Initial render
   updateWheel();
