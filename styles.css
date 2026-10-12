@@ -172,7 +172,8 @@ p:last-child {
   border-color: var(--color-accent);
 }
 
-.btn-primary:hover, .btn-primary:focus-visible {
+.btn-primary:hover,
+.btn-primary:focus-visible {
   background-color: var(--color-accent-hover);
   border-color: var(--color-accent-hover);
   color: var(--color-white);
@@ -184,22 +185,29 @@ p:last-child {
   border-color: var(--color-text);
 }
 
-.btn-secondary:hover, .btn-secondary:focus-visible {
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
   background-color: var(--color-text);
   color: var(--color-bg);
 }
 
-/* ===== Header ===== */
+/* ===== Frosted Glass Sticky Header ===== */
 .site-header {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
+  z-index: 1000;
+  width: 100%;
   height: var(--header-height);
-  background: rgba(250, 250, 250, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(250, 250, 250, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--color-border);
-  z-index: 100;
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.site-header.scrolled {
+  background: rgba(250, 250, 250, 0.85);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 .header-inner {
