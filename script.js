@@ -274,3 +274,18 @@ if (track && wrapper && slides.length > 0) {
   // Initial render
   updateWheel();
 }
+
+// FAQ Accordion: Close others when one is opened
+const faqItems = document.querySelectorAll('.faq-item');
+
+faqItems.forEach(item => {
+  item.addEventListener('toggle', () => {
+    if (item.open) {
+      faqItems.forEach(otherItem => {
+        if (otherItem !== item && otherItem.open) {
+          otherItem.open = false;
+        }
+      });
+    }
+  });
+});
