@@ -1120,3 +1120,14 @@ p:last-child {
 .faq-answer p {
   margin-bottom: 0;
 }
+
+/* Custom highlight color matching your site palette */
+::selection {
+  background-color: #7a2331;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: #7a2331;
+  color: #ffffff;
+}
