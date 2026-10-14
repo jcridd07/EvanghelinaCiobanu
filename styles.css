@@ -1235,19 +1235,22 @@ p:last-child {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* 9:16 Vertical Ratio */
+/* 9:16 Vertical Ratio (Crops YouTube's black side bars) */
 .video-responsive-wrapper.short-wrapper {
   position: relative;
   width: 100%;
   aspect-ratio: 9 / 16;
-  background-color: #000;
+  background-color: transparent;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
 }
 
 .video-responsive-wrapper.short-wrapper iframe {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 50%;
+  left: 50%;
+  width: 177.78%; /* 16/9 expanded math to eliminate black bars */
   height: 100%;
+  transform: translate(-50%, -50%);
   border: 0;
 }
