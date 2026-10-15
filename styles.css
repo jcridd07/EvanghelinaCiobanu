@@ -1240,7 +1240,7 @@ p:last-child {
   position: relative;
   width: 100%;
   aspect-ratio: 9 / 16;
-  background-color: transparent;
+  background-color: #000;
   overflow: hidden;
   border-radius: 12px 12px 0 0;
 }
@@ -1249,7 +1249,8 @@ p:last-child {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 177.78%; /* 16/9 expanded math to eliminate black bars */
+  /* 316% zooms the 16:9 player so the 9:16 video fills the entire card edge-to-edge */
+  width: 316.2%;
   height: 100%;
   transform: translate(-50%, -50%);
   border: 0;
