@@ -1235,25 +1235,23 @@ p:last-child {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* 9:16 Vertical Ratio (Crops YouTube's black side bars) */
-.video-responsive-wrapper.short-wrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 9 / 16;
-  background-color: #000;
+/* Instagram Reel Embed Container */
+.instagram-embed-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-bg);
   overflow: hidden;
   border-radius: 12px 12px 0 0;
+  min-height: 480px;
 }
 
-.video-responsive-wrapper.short-wrapper iframe {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /* 316% zooms the 16:9 player so the 9:16 video fills the entire card edge-to-edge */
-  width: 316.2%;
-  height: 100%;
-  transform: translate(-50%, -50%);
-  border: 0;
+.instagram-embed-container blockquote.instagram-media {
+  margin: 0 !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 .direct-email-note {
