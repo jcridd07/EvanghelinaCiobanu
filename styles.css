@@ -1,6 +1,5 @@
 /* ===== CSS Variables ===== */
 :root {
-  --color-bg: #f4f6fb;        /* Lighter, brighter, and less muddy/gray */
   --color-bg-alt: #f4f6fb;    /* Matches --color-bg so all sections are uniform */
   --color-text: #1a1a1a;
   --color-text-muted: #6b6866;
@@ -1310,4 +1309,14 @@ p:last-child {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-accent);
+}
+
+/* Vertical Video Wrapper */
+.video-responsive-wrapper.short-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background-color: #000;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
 }
