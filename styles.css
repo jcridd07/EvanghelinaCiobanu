@@ -1354,55 +1354,38 @@ p:last-child {
 }
 
 /* =========================================================
-   Unified Bright Red Hover State (#c41230) for Clickables
+   Universal Bright Red (#c41230) Hover Overrides
    ========================================================= */
 
-/* 1. All Standard Text Links & Footer Links */
-a:hover,
-a:focus-visible {
+/* 1. Header Logo & Main Nav Links */
+.logo:hover {
   color: var(--color-accent-hover) !important;
 }
 
-/* 2. Navigation Bar Links */
-.nav-links a:hover,
-.nav-menu a:hover,
-.nav-item a:hover {
+.main-nav a:hover,
+.main-nav a:focus-visible {
   color: var(--color-accent-hover) !important;
 }
 
-/* 3. Secondary / Outline Buttons */
-.btn-secondary:hover,
-.btn-outline:hover {
-  border-color: var(--color-accent-hover) !important;
-  color: var(--color-accent-hover) !important;
-  background-color: rgba(196, 18, 48, 0.05); /* Soft rose glow */
-}
-
-/* 4. Primary Solid Buttons */
-.btn-primary:hover,
-button[type="submit"]:hover {
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after {
   background-color: var(--color-accent-hover) !important;
-  border-color: var(--color-accent-hover) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(196, 18, 48, 0.25); /* Subtle warm red shadow */
 }
 
-/* 5. Carousel Nav Buttons (Prev / Next Arrows) */
-.carousel-btn:hover,
-.wheel-btn:hover {
+/* 2. Carousel Prev/Next Buttons & Dots */
+.carousel-btn:hover {
   background-color: var(--color-accent-hover) !important;
   border-color: var(--color-accent-hover) !important;
   color: #ffffff !important;
 }
 
-/* 6. Carousel Pagination Dots */
-.dot:hover {
+.carousel-dot:hover {
   background-color: var(--color-accent-hover) !important;
-  opacity: 1;
 }
 
-/* 7. FAQ Accordion Questions */
-.faq-question:hover {
+/* 3. FAQ Accordion: Question Text & Plus/Minus Lines */
+.faq-question:hover,
+.faq-question:hover span {
   color: var(--color-accent-hover) !important;
 }
 
@@ -1411,17 +1394,35 @@ button[type="submit"]:hover {
   background-color: var(--color-accent-hover) !important;
 }
 
-/* 8. Social Media Icons (YouTube, Instagram, etc.) */
+/* 4. Social Media Buttons (Footer & Header) - handles circle + SVG */
 .social-links a:hover,
-.social-links svg:hover {
-  color: var(--color-accent-hover) !important;
-  stroke: var(--color-accent-hover) !important;
-  transform: translateY(-2px);
-  transition: transform 0.2s ease, color 0.2s ease, stroke 0.2s ease;
+.social-links a:focus-visible,
+.header-socials a:hover,
+.header-socials a:focus-visible {
+  background-color: var(--color-accent-hover) !important;
+  border-color: var(--color-accent-hover) !important;
+  color: #ffffff !important;
 }
 
-/* 9. Floating Contact Pill Button */
-.floating-cta:hover {
+.social-links a:hover svg,
+.header-socials a:hover svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: currentColor !important;
+}
+
+/* 5. Floating Action Buttons (Pill & Back to Top) */
+.floating-btn:hover,
+.floating-actions a:hover {
   background-color: var(--color-accent-hover) !important;
-  box-shadow: 0 8px 24px rgba(196, 18, 48, 0.35) !important;
+  border-color: var(--color-accent-hover) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 25px rgba(196, 18, 48, 0.4) !important;
+}
+
+/* 6. Form Submit Buttons */
+button[type="submit"]:hover,
+.btn-primary:hover {
+  background-color: var(--color-accent-hover) !important;
+  border-color: var(--color-accent-hover) !important;
 }
