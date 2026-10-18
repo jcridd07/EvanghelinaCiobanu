@@ -1352,3 +1352,76 @@ p:last-child {
     transparent 100%
   );
 }
+
+/* =========================================================
+   Unified Bright Red Hover State (#c41230) for Clickables
+   ========================================================= */
+
+/* 1. All Standard Text Links & Footer Links */
+a:hover,
+a:focus-visible {
+  color: var(--color-accent-hover) !important;
+}
+
+/* 2. Navigation Bar Links */
+.nav-links a:hover,
+.nav-menu a:hover,
+.nav-item a:hover {
+  color: var(--color-accent-hover) !important;
+}
+
+/* 3. Secondary / Outline Buttons */
+.btn-secondary:hover,
+.btn-outline:hover {
+  border-color: var(--color-accent-hover) !important;
+  color: var(--color-accent-hover) !important;
+  background-color: rgba(196, 18, 48, 0.05); /* Soft rose glow */
+}
+
+/* 4. Primary Solid Buttons */
+.btn-primary:hover,
+button[type="submit"]:hover {
+  background-color: var(--color-accent-hover) !important;
+  border-color: var(--color-accent-hover) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(196, 18, 48, 0.25); /* Subtle warm red shadow */
+}
+
+/* 5. Carousel Nav Buttons (Prev / Next Arrows) */
+.carousel-btn:hover,
+.wheel-btn:hover {
+  background-color: var(--color-accent-hover) !important;
+  border-color: var(--color-accent-hover) !important;
+  color: #ffffff !important;
+}
+
+/* 6. Carousel Pagination Dots */
+.dot:hover {
+  background-color: var(--color-accent-hover) !important;
+  opacity: 1;
+}
+
+/* 7. FAQ Accordion Questions */
+.faq-question:hover {
+  color: var(--color-accent-hover) !important;
+}
+
+.faq-question:hover .faq-icon::before,
+.faq-question:hover .faq-icon::after {
+  background-color: var(--color-accent-hover) !important;
+}
+
+/* 8. Social Media Icons (YouTube, Instagram, etc.) */
+.social-links a:hover,
+.social-links svg:hover {
+  color: var(--color-accent-hover) !important;
+  stroke: var(--color-accent-hover) !important;
+  transform: translateY(-2px);
+  transition: transform 0.2s ease, color 0.2s ease, stroke 0.2s ease;
+}
+
+/* 9. Floating Contact Pill Button */
+.floating-cta:hover {
+  background-color: var(--color-accent-hover) !important;
+  box-shadow: 0 8px 24px rgba(196, 18, 48, 0.35) !important;
+}
