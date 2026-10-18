@@ -1,5 +1,6 @@
 /* ===== CSS Variables ===== */
 :root {
+  --color-bg: #f4f6fb;
   --color-bg-alt: #f4f6fb;    /* Matches --color-bg so all sections are uniform */
   --color-text: #1a1a1a;
   --color-text-muted: #6b6866;
