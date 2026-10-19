@@ -137,12 +137,14 @@ if (scrollTopBtn) {
 // ==========================================
 // 7. Studio Gallery Carousel (3D Wheel Engine)
 // ==========================================
-const track = document.querySelector('.carousel-track');
-const wrapper = document.querySelector('.carousel-track-wrapper');
-const slides = Array.from(document.querySelectorAll('.carousel-slide'));
-const prevBtn = document.querySelector('.prev-btn');
-const nextBtn = document.querySelector('.next-btn');
-const dotsContainer = document.querySelector('.carousel-dots');
+// Scope strictly to the teaching gallery section so it ignores the video carousel
+const teachingGallery = document.querySelector('.teaching-gallery') || document.querySelector('#gallery');
+const track = teachingGallery ? teachingGallery.querySelector('.carousel-track') : null;
+const wrapper = teachingGallery ? teachingGallery.querySelector('.carousel-track-wrapper') : null;
+const slides = track ? Array.from(track.querySelectorAll('.carousel-slide')) : [];
+const prevBtn = teachingGallery ? teachingGallery.querySelector('.prev-btn') : null;
+const nextBtn = teachingGallery ? teachingGallery.querySelector('.next-btn') : null;
+const dotsContainer = teachingGallery ? teachingGallery.querySelector('.carousel-dots') : null;
 
 if (track && wrapper && slides.length > 0) {
   let currentIndex = 0;
