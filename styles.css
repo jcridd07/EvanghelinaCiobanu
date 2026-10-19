@@ -1411,7 +1411,7 @@ p:last-child {
   color: var(--color-text);
   border: 1.5px solid var(--color-border);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 2.2rem;       /* Scaled up to match the photo carousel */
+  font-size: 2.5rem;       /* Scaled up to match the photo carousel */
   font-weight: 300;
   line-height: 0;
   padding-bottom: 3px;    /* Centered optically */
@@ -1445,7 +1445,7 @@ p:last-child {
   .video-carousel-container .carousel-btn {
     width: 40px;
     height: 40px;
-    font-size: 1.8rem;
+    font-size: 2.0rem;
     padding-bottom: 2px;
   }
   .video-carousel-container .prev-btn { left: 0.25rem; }
