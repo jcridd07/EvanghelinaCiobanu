@@ -1132,6 +1132,58 @@ p:last-child {
   color: #ffffff;
 }
 
+/* ===== Video 3D Carousel Specifics ===== */
+.video-carousel-container .carousel-track-wrapper {
+  height: min(78vh, 640px);
+  min-height: 520px;
+}
+
+.video-slide {
+  width: clamp(280px, 32vw, 360px);
+  height: auto;
+  max-height: 96%;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  padding: 0;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.video-slide-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-slide-inner .video-responsive-wrapper {
+  border-radius: 14px 14px 0 0;
+}
+
+.video-slide-inner video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-slide .performance-meta {
+  padding: 1.1rem 1.25rem;
+  background: var(--color-white);
+}
+
+@media (max-width: 768px) {
+  .video-carousel-container .carousel-track-wrapper {
+    height: min(72vh, 560px);
+    min-height: 460px;
+  }
+  .video-slide {
+    width: 78vw;
+    max-width: 310px;
+  }
+}
+
 /* ===== Performance Media Showcase ===== */
 .media-showcase {
   padding: var(--space-2xl) 0;
