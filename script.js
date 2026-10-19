@@ -289,3 +289,96 @@ faqItems.forEach(item => {
     }
   });
 });
+
+// ==========================================
+// Performance Video 3D Carousel
+// ==========================================
+(function initVideoCarousel() {
+  const track = document.getElementById('videoCarouselTrack');
+  const prevBtn = document.getElementById('videoPrevBtn');
+  const nextBtn = document.getElementById('videoNextBtn');
+  const dotsContainer = document.getElementById('videoCarouselDots');
+  
+  if (!track) return;
+  
+  const slides = Array.from(track.querySelectorAll('.video-slide'));
+  const totalSlides = slides.length;
+  let currentIndex = 0;
+
+  // Build dots
+  slides.forEach((_, idx) => {
+    const dot = document.createElement('button');
+    dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
+    dot.setAttribute('aria-label', `Go to video ${idx + 1}`);
+    dot.addEventListener('click', () => goToSlide(idx));
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = Array.from(dotsContainer.querySelectorAll('.carousel-dot'));
+
+  function pauseAllVideos() {
+    track.querySelectorAll('video').forEach(vid => vid.pause());
+  }
+
+  function updateCarousel() {
+    slides.forEach((slide, idx) => {
+      let offset = idx - currentIndex;
+      
+      // Wrap around logic for circular carousel
+      if (offset > totalSlides / 2) offset -= totalSlides;
+      if (offset < -totalSlides / 2) offset += totalSlides;
+
+      const absOffset = Math.abs(offset);
+
+      if (absOffset === 0) {
+        // Active Center Slide
+        slide.style.transform = `translateX(0px) translateZ(80px) rotateY(0deg) scale(1)`;
+        slide.style.opacity = '1';
+        slide.style.zIndex = '10';
+        slide.style.visibility = 'visible';
+        slide.style.pointerEvents = 'auto';
+      } else if (absOffset === 1) {
+        // Flanking Side Slides
+        const direction = offset > 0 ? 1 : -1;
+        slide.style.transform = `translateX(${direction * 65}%) translateZ(-90px) rotateY(${direction * -18}deg) scale(0.88)`;
+        slide.style.opacity = '0.55';
+        slide.style.zIndex = '5';
+        slide.style.visibility = 'visible';
+        slide.style.pointerEvents = 'auto';
+      } else {
+        // Hidden Offscreen Slides
+        slide.style.transform = `translateX(0px) translateZ(-200px) scale(0.6)`;
+        slide.style.opacity = '0';
+        slide.style.zIndex = '1';
+        slide.style.visibility = 'hidden';
+        slide.style.pointerEvents = 'none';
+      }
+    });
+
+    // Update Dots
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentIndex);
+    });
+  }
+
+  function goToSlide(index) {
+    pauseAllVideos();
+    currentIndex = (index + totalSlides) % totalSlides;
+    updateCarousel();
+  }
+
+  // Click side slides to bring to front
+  slides.forEach((slide, idx) => {
+    slide.addEventListener('click', (e) => {
+      // Don't change slide if clicking video play controls on the active slide
+      if (idx === currentIndex) return;
+      goToSlide(idx);
+    });
+  });
+
+  if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+  // Initialize
+  updateCarousel();
+})();
