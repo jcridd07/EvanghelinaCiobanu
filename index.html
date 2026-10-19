@@ -80,7 +80,7 @@
         </div>
         <div class="about-grid">
           <div class="about-text">
-            <p>Dr. Evanghelina Ciobanu is a Moldovan-born cellist, educator, and performer with 25 years as a cellist and over 10 years of teaching experience. A passionate educator, Dr. Ciobanu brings extensive institutional and private teaching experience across all ages and levels. She has served on the faculty for Minor Cello at the Peabody Institute of The Johns Hopkins University, as a Teaching Artist for the Baltimore Symphony Orchestra’s OrchKids program, and as cello instructor at the Baltimore School for the Arts, the Cincinnati School of Music, and KC Music Academy. Her pedagogy emphasizes solid technical fundamentals, expressive musicality, and a lifelong dedication to the instrument.</p>
+            <p>Dr. Evanghelina Ciobanu is a Moldovan-born cellist, passionate educator, and performer with 25 years as a cellist and over 10 years of teaching experience. She brings extensive institutional and private teaching experience across all ages and levels. She has served on the faculty for Minor Cello at the Peabody Institute of The Johns Hopkins University, as a Teaching Artist for the Baltimore Symphony Orchestra’s OrchKids program, and as cello instructor at the Baltimore School for the Arts, the Cincinnati School of Music, and KC Music Academy. Her pedagogy emphasizes solid technical fundamentals, expressive musicality, and a lifelong dedication to the instrument.</p>
             <p>She holds a Doctor of Musical Arts in Cello Performance from the Peabody Institute, where she studied under Alan Stepansky, a Master of Music from the University of Cincinnati College-Conservatory of Music (CCM), and a Bachelor of Music from Park University’s International Center for Music.</p>
             <p>As a versatile performer, Dr. Ciobanu has appeared as a soloist, chamber musician, and orchestral player across Europe, the United States, and South Korea. Her orchestral leadership includes serving as Principal Cellist of the Moldovan National Symphony Orchestra “Teleradio-Moldova” on its South Korea tour and of the Wonderful Youth Orchestra throughout Italy and the Balkans. She has performed with orchestras including the South Florida Symphony Orchestra, the Central European Initiative Youth Orchestra, and the Mid-Atlantic Symphony Orchestra. A committed chamber artist, she has participated in festivals such as the Sitka International Cello Seminar in Alaska and the Castleman Quartet Program in New York, and served as Artist-in-Residence at Springwell Senior Community.</p>
             <p>Her honors include the Peabody Civic Engagement Georgie Award, scholarships from Sigma Alpha Iota and the Kansas City Music Club, and prizes at the George Georgescu International Competition in Romania and the Antonina Lucinschi National Competition in Moldova.</p>
@@ -278,52 +278,74 @@
       <p class="section-intro">Excerpts from recitals, concerto appearances, and chamber collaborations.</p>
     </div>
 
-    <div class="media-showcase-grid shorts-grid">
-           <!-- Performance Card 1: Brahms -->
-      <div class="performance-card short-card">
-        <div class="video-responsive-wrapper short-wrapper">
-          <video controls playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: cover;">
-            <source src="Short_1745_crop_compress.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+    <!-- Video 3D Carousel -->
+    <div class="carousel-container video-carousel-container">
+      <div class="carousel-track-wrapper">
+        <div class="carousel-track" id="videoCarouselTrack">
+
+          <!-- Video Slide 1: Brahms -->
+          <div class="carousel-slide video-slide">
+            <div class="video-slide-inner">
+              <div class="video-responsive-wrapper short-wrapper">
+                <video controls playsinline preload="metadata">
+                  <source src="Short_1745_crop_compress.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div class="performance-meta">
+                <span class="performance-badge">Performance Excerpt</span>
+                <h3 class="performance-title">Brahms Cello Sonata in E minor, Op. 38</h3>
+                <p class="performance-sub">Collaborative Recital Excerpt</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Slide 2: Shostakovich -->
+          <div class="carousel-slide video-slide">
+            <div class="video-slide-inner">
+              <div class="video-responsive-wrapper short-wrapper">
+                <video controls playsinline preload="metadata">
+                  <source src="Short_2577_crop_compress.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div class="performance-meta">
+                <span class="performance-badge">Performance Excerpt</span>
+                <h3 class="performance-title">Shostakovich Cello Sonata in D minor, Op. 40</h3>
+                <p class="performance-sub">Live Performance Excerpt</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Slide 3: Bach -->
+          <div class="carousel-slide video-slide">
+            <div class="video-slide-inner">
+              <div class="video-responsive-wrapper short-wrapper">
+                <video controls playsinline preload="metadata">
+                  <source src="Short_2578_crop_compress.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div class="performance-meta">
+                <span class="performance-badge">Behind the Scenes</span>
+                <h3 class="performance-title">Bach Suite No. 5, Courante</h3>
+                <p class="performance-sub">Intimate Studio Session</p>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="performance-meta">
-          <span class="performance-badge">Performance Excerpt</span>
-          <h3 class="performance-title">Brahms Cello Sonata in E minor, Op. 38</h3>
-          <p class="performance-sub">Collaborative Recital Excerpt</p>
-        </div>
+
+        <!-- Carousel Navigation Controls -->
+        <button class="carousel-btn prev-btn" id="videoPrevBtn" aria-label="Previous Video">&larr;</button>
+        <button class="carousel-btn next-btn" id="videoNextBtn" aria-label="Next Video">&rarr;</button>
       </div>
 
-      <!-- Performance Card 2: Shostakovich -->
-      <div class="performance-card short-card">
-        <div class="video-responsive-wrapper short-wrapper">
-          <video controls playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: cover;">
-            <source src="Short_2577_crop_compress.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div class="performance-meta">
-          <span class="performance-badge">Performance Excerpt</span>
-          <h3 class="performance-title">Shostakovich Cello Sonata in D minor, Op. 40</h3>
-          <p class="performance-sub">Live Performance Excerpt</p>
-        </div>
-      </div>
-
-            <!-- Performance Card 3: Bach -->
-      <div class="performance-card short-card">
-        <div class="video-responsive-wrapper short-wrapper">
-          <video controls playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: cover;">
-            <source src="Short_2578_crop_compress.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div class="performance-meta">
-          <span class="performance-badge">Behind the Scenes</span>
-          <h3 class="performance-title">Bach Suite No. 5, Courante</h3>
-          <p class="performance-sub">Intimate Studio Session</p>
-        </div>
-      </div>
-
+      <!-- Indicator Dots -->
+      <div class="carousel-dots" id="videoCarouselDots"></div>
+    </div>
+  </div>
+</section>
     <!-- Direct Channel Link Out -->
     <div class="media-footer-link">
       <a href="https://youtube.com/@evanghelinaciobanu7975" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
