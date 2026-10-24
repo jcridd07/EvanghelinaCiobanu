@@ -21,27 +21,51 @@ if (navToggle && mainNav) {
 }
 
 // ==========================================
-// 2. Frosted Header & Floating Pill Scroll Watcher
+// 2. Frosted Header Scroll Watcher
 // ==========================================
 const siteHeader = document.querySelector('.site-header');
-const quickPill = document.getElementById('quickBookPill');
 
 window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-
-  // Toggle frosted header shadow/opacity
   if (siteHeader) {
-    siteHeader.classList.toggle('scrolled', scrollY > 20);
-  }
-
-  // Show floating booking pill after scrolling 325px
-  if (quickPill) {
-    quickPill.classList.toggle('visible', scrollY > 325);
+    siteHeader.classList.toggle('scrolled', window.scrollY > 20);
   }
 }, { passive: true });
 
 // ==========================================
-// 3. Gentle Scroll Reveal (IntersectionObserver)
+// 3. Floating Action Pill Visibility Trigger
+// ==========================================
+const floatingActions = document.getElementById('floatingActions');
+const heroActions = document.querySelector('.hero-actions') || document.querySelector('.hero');
+
+function handleFloatingActionsVisibility() {
+  if (!floatingActions) return;
+
+  if (heroActions) {
+    // Measures the exact bottom of the "Book a Lesson" / "Book a Performance" buttons
+    const triggerPoint = heroActions.getBoundingClientRect().bottom;
+
+    // Only appears when the hero action buttons have scrolled completely off the top
+    if (triggerPoint < 0) {
+      floatingActions.classList.add('visible');
+    } else {
+      floatingActions.classList.remove('visible');
+    }
+  } else {
+    // Fallback: appears after 600px of scrolling
+    if (window.scrollY > 600) {
+      floatingActions.classList.add('visible');
+    } else {
+      floatingActions.classList.remove('visible');
+    }
+  }
+}
+
+window.addEventListener('scroll', handleFloatingActionsVisibility, { passive: true });
+// Run once on load in case the user refreshes mid-page
+handleFloatingActionsVisibility();
+
+// ==========================================
+// 4. Gentle Scroll Reveal (IntersectionObserver)
 // ==========================================
 const revealObserver = new IntersectionObserver((entries, observer) => {
   entries.forEach(entry => {
@@ -60,7 +84,7 @@ document.querySelectorAll('.reveal, .section, .teaching-card').forEach(el => {
 });
 
 // ==========================================
-// 4. Set Current Year in Footer
+// 5. Set Current Year in Footer
 // ==========================================
 const yearSpan = document.getElementById('year');
 if (yearSpan) {
@@ -112,17 +136,9 @@ document.querySelectorAll('.form').forEach(form => {
 });
 
 // ==========================================
-// 6. Floating "Book a Lesson" & Back-to-Top Pill
+// 6. Floating Action Button: Scroll-to-Top
 // ==========================================
-const floatingActions = document.getElementById('floatingActions');
 const scrollTopBtn = document.getElementById('scrollTopBtn');
-
-// Fade in / out past 325px of scrolling
-window.addEventListener('scroll', () => {
-  if (floatingActions) {
-    floatingActions.classList.toggle('visible', window.scrollY > 325);
-  }
-}, { passive: true });
 
 // Smooth scroll to top on arrow click
 if (scrollTopBtn) {
